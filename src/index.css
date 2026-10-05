@@ -1,0 +1,327 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   DEFENXIA — Premium Glassmorphism Design System
+   Exact tokens from the DEFENXIA reference mockup (magenta/magenta-deep/violet-deep).
+   No blue/purple anywhere. Cards use REAL layered glass, not
+   flat transparency.
+   ============================================================ */
+
+@layer base {
+  :root {
+    /* ---- DEFENXIA raw tokens (exact, from reference mockup) ---- */
+    --ink:#f5f3ff;
+    --muted:#b9b0d9;
+    --faint:#8f86b3;
+    --base-0:#060609;
+    --base-1:#0a0a12;
+    --base-2:#101018;
+    --ember:#f9613f;
+    --ember-deep:#4a1f0e;
+    --magenta:#e8357b;
+    --magenta-bright:#d63a72;
+    --magenta-deep:#54183a;
+    --violet:#8b3df0;
+    --violet-deep:#241040;
+    --lav:#cdc2f7;
+    --lav-bright:#e4dcfc;
+    --lav-soft:#d7cdfa;
+    --edge: rgba(205,194,247, 0.28);
+    --edge-soft: rgba(205,194,247, 0.10);
+    --glass: rgba(205,194,247, 0.025);
+    --glass-hover: rgba(205,194,247, 0.045);
+    --shadow: rgba(0, 0, 0, 0.48);
+    --shine: 0;
+    --shine-x: -55%;
+
+    --lav: #cdc2f7;         /* eyebrows / icon strokes */
+    --lav-bright: #e4dcfc;
+    --lav-soft: #d7cdfa;
+
+    /* ---- shadcn/ui HSL overrides (space-separated, aurora-tinted) ---- */
+    --background: 272 45% 4%;
+    --foreground: 262 60% 97%;
+
+    --card: 272 38% 8%;
+    --card-foreground: 262 60% 97%;
+    --card-glass: 272 36% 12%;
+
+    --popover: 272 42% 6%;
+    --popover-foreground: 262 60% 97%;
+
+    --primary: 333 79% 56%;
+    --primary-foreground: 262 60% 97%;
+    --primary-glow: 333 85% 62%;
+    --secondary-glow: 272 65% 58%;
+
+    --secondary: 272 32% 13%;
+    --secondary-foreground: 262 24% 84%;
+
+    --muted: 272 24% 14%;
+    --muted-foreground: 262 18% 66%;
+
+    --accent: 333 79% 56%;
+    --accent-foreground: 262 60% 97%;
+
+    /* Status colors — functional but desaturated/elegant, never neon */
+    --success: 152 28% 42%;
+    --success-foreground: 262 60% 97%;
+    --warning: 40 52% 52%;
+    --warning-foreground: 272 45% 6%;
+    --destructive: 4 60% 55%;
+    --destructive-foreground: 262 60% 97%;
+
+    --border: 272 30% 18%;
+    --input: 272 32% 13%;
+    --ring: 333 79% 56%;
+
+    --radius: 0.75rem;
+    --glow-radius: 20px;
+
+    --gradient-primary: linear-gradient(135deg, #f9613f, #e8357b 55%, #8b3df0);
+    --gradient-glass: linear-gradient(135deg, rgba(205,194,247, 0.05), rgba(205,194,247, 0.015));
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 272 45% 4%;
+    --sidebar-foreground: 262 24% 84%;
+    --sidebar-primary: 333 79% 56%;
+    --sidebar-primary-foreground: 262 60% 97%;
+    --sidebar-accent: 272 32% 13%;
+    --sidebar-accent-foreground: 262 24% 84%;
+    --sidebar-border: 272 30% 18%;
+    --sidebar-ring: 333 79% 56%;
+  }
+
+  * {
+    @apply border-border;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--base-0);
+  }
+
+  html,
+  body {
+    color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    min-height: 100%;
+  }
+
+  body {
+    @apply overflow-x-hidden;
+    margin: 0;
+    min-width: 320px;
+    background:
+      radial-gradient(circle at 66% 18%, rgba(139,61,240, 0.16), transparent 37%),
+      linear-gradient(135deg, var(--base-0) 0%, var(--base-1) 46%, var(--base-2) 100%);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgba(139,61,240, 0.55);
+    color: var(--ink);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--lav);
+    outline-offset: 3px;
+  }
+}
+
+/* ============================================================
+   Motion utilities (non-mockup helpers for app pages)
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes scanSweep {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(400%); }
+}
+@keyframes pulseAurora {
+  0%, 100% { box-shadow: 0 0 14px rgba(232,53,123, 0.45); }
+  50% { box-shadow: 0 0 30px rgba(232,53,123, 0.8); }
+}
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+
+@layer components {
+  .animate-fade-in { animation: fadeIn 0.6s ease-out; }
+  .animate-slide-in { animation: slideIn 0.6s ease-out; }
+  .animate-pulse-aurora { animation: pulseAurora 2.4s ease-in-out infinite; }
+  .animate-spin-slow { animation: spinSlow 1.2s linear infinite; }
+  .scan-sweep-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background: linear-gradient(180deg, transparent, rgba(232,53,123, 0.28) 55%, rgba(205,194,247, 0.5));
+    filter: blur(1px);
+    animation: scanSweep 2.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan-sweep-line, .animate-pulse-aurora, .animate-spin-slow { animation: none !important; }
+}
+
+/* ============================================================
+   DEFENXIA — Sonner toast glassmorphism
+   Namespaced `.defenxia-toast*` rules that mirror the bottom
+   navigation bar glass (.glass + .nav, owned by mockup.css):
+   dark translucent glass, backdrop blur + saturate, 1px light
+   border, rounded pill, light text.
+   Sonner's own base styles are wrapped in :where() (zero
+   specificity), so these class rules win without !important.
+   Icons carry the only semantic color, kept soft and subtle.
+   ============================================================ */
+[data-sonner-toaster].toaster {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+[data-sonner-toast].defenxia-toast {
+  background: linear-gradient(135deg, rgba(42, 34, 70, 0.80), rgba(11, 11, 19, 0.88));
+  -webkit-backdrop-filter: blur(27.04px) saturate(140%);
+  backdrop-filter: blur(27.04px) saturate(140%);
+  border: 1px solid rgba(205, 194, 247, 0.22);
+  border-radius: 24px;
+  color: #f5f3ff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 18px 44px rgba(0, 0, 0, 0.45);
+  padding: 14px 18px;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* Title + description */
+[data-sonner-toast].defenxia-toast [data-title] {
+  color: #f5f3ff;
+  font-weight: 600;
+}
+.defenxia-toast-description,
+[data-sonner-toast].defenxia-toast [data-description] {
+  color: #b9b0d9;
+}
+
+/* Subtle semantic accents — icons only, the glass stays dark */
+[data-sonner-toast].defenxia-toast[data-type="success"] {
+  border-color: rgba(139, 224, 171, 0.30);
+}
+[data-sonner-toast].defenxia-toast[data-type="success"] [data-icon] {
+  color: #8be0ab;
+}
+[data-sonner-toast].defenxia-toast[data-type="error"] {
+  border-color: rgba(240, 149, 149, 0.32);
+}
+[data-sonner-toast].defenxia-toast[data-type="error"] [data-icon] {
+  color: #f09595;
+}
+[data-sonner-toast].defenxia-toast[data-type="warning"] {
+  border-color: rgba(240, 200, 118, 0.30);
+}
+[data-sonner-toast].defenxia-toast[data-type="warning"] [data-icon] {
+  color: #f0c876;
+}
+[data-sonner-toast].defenxia-toast[data-type="info"] [data-icon],
+[data-sonner-toast].defenxia-toast[data-type="loading"] [data-icon],
+[data-sonner-toast].defenxia-toast[data-type="default"] [data-icon] {
+  color: #cdc2f7;
+}
+
+/* Action / cancel buttons in Aurora violet glass */
+.defenxia-toast-action {
+  background: rgba(139, 61, 240, 0.85);
+  color: #f5f3ff;
+}
+.defenxia-toast-cancel {
+  background: rgba(205, 194, 247, 0.06);
+  color: #b9b0d9;
+}
+
+/* ============================================================
+   READABILITY LAYER — whole-app text clarity (mobile APK).
+   Added 2026-10-04: users struggled to read text over the busy
+   background. This layer sits on top of the design system and
+   only strengthens legibility — no layout changes.
+   ============================================================ */
+
+@layer base {
+  /* Brighter base text tokens for contrast */
+  :root {
+    --muted: #cfc6ec;
+    --faint: #a89ed1;
+  }
+
+  /* Gentle depth shadow on ALL text so it lifts off any background */
+  body {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings: bolder + stronger presence */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+    color: #f7f4ff;
+  }
+
+  /* Body copy: slightly heavier for small screens */
+  p, span, div, li {
+    font-weight: 450;
+  }
+
+  /* Muted / secondary text: never too faint */
+  .text-muted-foreground,
+  [class*="text-muted"] {
+    color: #cfc6ec !important;
+    font-weight: 500;
+  }
+
+  /* Small / caption text: bump size floor + weight */
+  small, .text-xs, [class*="text-xs"] {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  /* Buttons & interactive labels: crisp and bold */
+  button, a, [role="button"] {
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Card titles stand out */
+  [class*="card-title"], [class*="CardTitle"] {
+    font-weight: 700;
+    color: #faf8ff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Inputs: readable typed text */
+  input, textarea, select {
+    font-weight: 500;
+    color: #f7f4ff;
+  }
+  input::placeholder, textarea::placeholder {
+    color: #a89ed1;
+    opacity: 1;
+    font-weight: 400;
+  }
+}
