@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconShieldCheck, IconArrow, IconBack } from "@/components/mockup/icons";
 import { invokeEdgeFunction } from "@/lib/supabase-client";
+import { getPersonalKnowledgeAnswer } from "@/lib/personal-knowledge";
 
 interface Message {
   id: string;
@@ -112,6 +113,20 @@ const AISMSShield = () => {
     setMessages(prev => [...prev, userMessage]);
     setInputMessage("");
     setIsLoading(true);
+
+    // Personal knowledge first — instant answer, no AI call needed
+    const personalAnswer = getPersonalKnowledgeAnswer(currentText);
+    if (personalAnswer) {
+      const aiMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: personalAnswer,
+        sender: 'ai',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, aiMessage]);
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const { data, error } = await invokeEdgeFunction<{ response?: string }>('ai-analysis', {

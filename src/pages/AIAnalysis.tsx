@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Send, Bot, User } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { invokeEdgeFunction } from "@/lib/supabase-client";
+import { getPersonalKnowledgeAnswer } from "@/lib/personal-knowledge";
 
 interface Message {
   id: string;
@@ -35,6 +36,20 @@ const AIAnalysis = () => {
     setMessages(prev => [...prev, userMessage]);
     setInputMessage("");
     setIsLoading(true);
+
+    // Personal knowledge first — instant answer, no AI call needed
+    const personalAnswer = getPersonalKnowledgeAnswer(inputMessage);
+    if (personalAnswer) {
+      const aiMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: personalAnswer,
+        sender: 'ai',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, aiMessage]);
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const { data, error } = await invokeEdgeFunction('ai-analysis', {
